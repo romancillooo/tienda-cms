@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+:root {
+
+  //Colores
+  --colorPrimario: #0F151B;
+  --colorSecundario: #ADADAD;
+  --colorTerciario: #4e4e4e;
+  --cuartoColor: #1784C7;
+
+  //Fuentes
+  --fuentePrincipal: 'Outfit', sans-serif;
+
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
