@@ -8,7 +8,7 @@
 
   //Colores
   --colorPrimario: #0F151B;
-  --colorSecundario: #ADADAD;
+  --colorSecundario: #DADADA;
   --colorTerciario: #4e4e4e;
   --cuartoColor: #1784C7;
 
@@ -17,8 +17,11 @@
 
 }
 
-
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--colorSecundario);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

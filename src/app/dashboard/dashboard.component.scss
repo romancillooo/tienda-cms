@@ -1,0 +1,39 @@
+.dashboard {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  font-family: var(--fuentePrincipal);
+  background-color: var(--colorSecundario);
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  .statistics {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-around;
+
+    .stat-item {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      flex: 1;
+
+      h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: #555;
+      }
+
+      p {
+        font-size: 3rem;
+        margin: 0;
+        color: #3498db;
+      }
+    }
+  }
+}
