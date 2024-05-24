@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>Marcas</h2>
+      <a routerLink="/brands/new" class="btn btn-primary">Añadir Nueva Marca</a>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Imagen</th>
+            <th>Path</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let brand of brands">
+            <td>{{ brand.name }}</td>
+            <td><img [src]="apiHost + assetsBasePath +'/brands-logos/' + brand.image" alt="{{ brand.name }}" class="img-thumbnail"></td>
+            <td>{{ brand.path }}</td>
+            <td class="actions">
+              <a [routerLink]="['/brands/edit', brand.id]" class="btn btn-warning">Editar</a>
+              <button (click)="openConfirmDeleteDialog(brand)" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

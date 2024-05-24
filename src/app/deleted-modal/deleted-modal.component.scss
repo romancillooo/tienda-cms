@@ -1,0 +1,23 @@
+.principal-container {
+
+  h1 {
+    font-family: var(--fuentePrincipal);
+    font-weight: 600;
+  }
+
+  .success-message {
+
+    p{
+      font-family: var(--fuentePrincipal);
+    }
+  }
+
+  .btn-container {
+    .btn-close {
+      background-color: var(--colorPrimario);
+      width: 60px;
+      height: 20px;
+      color: white;
+    }
+  }
+}

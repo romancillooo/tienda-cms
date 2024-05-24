@@ -1,0 +1,11 @@
+<div class="container-modal">
+  <h1 mat-dialog-title>Confirmar Eliminación</h1>
+  <div mat-dialog-content class="confirm-text">
+    <p>¿Estás seguro que quieres eliminar {{ data.entityType }} {{ data.entityName }}?</p>
+  </div>
+  <div mat-dialog-actions class="btns-container">
+    <button mat-button (click)="onNoClick()" class="btn btn-cancel">No</button>
+    <button mat-raised-button color="warn" (click)="confirmDelete()" class="btn btn-danger btn-yes">Sí</button>
+  </div>
+</div>
+

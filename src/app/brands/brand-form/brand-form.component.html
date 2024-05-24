@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ brandId ? 'Editar Marca' : 'Añadir Nueva Marca' }}</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="brandForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Nombre de la Marca</label>
+          <input id="name" formControlName="name" class="form-control" placeholder="Ingresa el Nombre de la Marca" />
+        </div>
+        <div class="form-group">
+          <label for="image">Imagen</label>
+          <input type="file" id="image" (change)="onFileChange($event)" class="form-control" />
+          <img *ngIf="previewUrl" [src]="previewUrl" alt="Vista previa" class="img-thumbnail mt-2" style="width: 100px;">
+        </div>
+        <div class="form-group">
+          <label for="path">Path</label>
+          <input id="path" formControlName="path" class="form-control" placeholder="Ingresa el Path de la Marca" />
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">{{ brandId ? 'Actualizar' : 'Crear' }}</button>
+          <a routerLink="/brands" class="btn btn-danger">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

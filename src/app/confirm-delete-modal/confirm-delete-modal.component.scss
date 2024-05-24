@@ -1,0 +1,35 @@
+.container-modal {
+  font-family: var(--fuentePrincipal);
+
+  h1 {
+    font-family: var(--fuentePrincipal);
+    font-weight: 600;
+  }
+}
+
+.confirm-text {
+
+  p{
+    font-size: 17px;
+    color: var(--colorPrincipal);
+  }
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.btns-container {
+
+  .btn-cancel {
+    margin: 0 10px 0 0;
+    background-color: var(--colorPrimario);
+    color: white;
+  }
+
+  .btn-yes {
+    width: 60px;
+  }
+}

@@ -1,0 +1,15 @@
+<div class="category-form">
+  <h2>{{ categoryId ? 'Edit Category' : 'Create Category' }}</h2>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" formControlName="name" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="path">Path</label>
+      <input id="path" formControlName="path" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">{{ categoryId ? 'Update' : 'Create' }}</button>
+    <a routerLink="/categories" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>

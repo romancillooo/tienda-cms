@@ -1,0 +1,38 @@
+
+.navbar-container {
+  background-color: var(--colorPrimario);
+  font-family: var(--fuentePrincipal);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  height: 80px;
+
+  .navbar-brand {
+    margin: 0;
+
+    img {
+      width: 50px;
+      cursor: pointer;
+    }
+  }
+
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+
+    li {
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+
+        &:hover {
+          color: var(--cuartoColor);
+        }
+      }
+    }
+  }
+}
