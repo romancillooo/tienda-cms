@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-delete-modal.component';
 import { DeletedModalComponent } from './deleted-modal/deleted-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    DragDropModule,
     MatDialogModule
   ],
   providers: [DashboardService, BrandService, CategoryService, ProductService],

@@ -1,47 +1,59 @@
-.product-list {
-  padding: 2rem;
-  background-color: #f9f9f9;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: var(--fuentePrincipal);
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
 
   h2 {
-    margin-bottom: 1.5rem;
-    color: #333;
+    font-size: 30px;
+    font-family: var(--fuentePrincipal);
   }
+}
 
-  .btn {
-    margin-bottom: 1rem;
-    &.btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
-    &.btn-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
-    &.btn-danger {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-  }
+.card-body {
+  padding: 16px;
+}
 
-  .table {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    th {
-      background-color: #f4f4f4;
-      text-align: left;
-      padding: 0.75rem;
-      border-bottom: 2px solid #dee2e6;
-    }
+.table thead {
+  background-color: #f1f1f1;
+}
 
-    td {
-      padding: 0.75rem;
-      border-top: 1px solid #dee2e6;
-    }
+.table th, .table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+}
 
-    tbody tr:hover {
-      background-color: #f1f1f1;
-    }
-  }
+.table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

@@ -9,4 +9,5 @@ export interface Product {
   liked: boolean;
   brand?: string; // Opcional
   category?: string; // Opcional
+  galleryImages?: string[];
 }

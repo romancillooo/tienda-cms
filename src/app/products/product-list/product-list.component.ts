@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteModalComponent } from '../../confirm-delete-modal/confirm-delete-modal.component';
+import { DeletedModalComponent } from '../../deleted-modal/deleted-modal.component';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 
@@ -10,7 +13,7 @@ import { Product } from '../../models/product.model';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private dialog: MatDialog, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -22,11 +25,29 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  openConfirmDeleteDialog(product: Product): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      width: '250px',
+      data: { entityName: product.name, entityType: 'el producto' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteProduct(product.id!);
+      }
+    });
+  }
+
   deleteProduct(id: number) {
-    if (id !== undefined) {
-      this.productService.deleteProduct(id).subscribe(() => {
-        this.loadProducts();
-      });
-    }
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.loadProducts();
+      this.openDeletedDialog();
+    });
+  }
+
+  openDeletedDialog(): void {
+    this.dialog.open(DeletedModalComponent, {
+      width: '250px'
+    });
   }
 }
