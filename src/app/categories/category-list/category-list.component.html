@@ -1,21 +1,29 @@
-<div class="category-list">
-  <h2>Category List</h2>
-  <a routerLink="/categories/new" class="btn btn-primary">Add New Category</a>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let category of categories">
-        <td>{{ category.name }}</td>
-        <td>
-          <a [routerLink]="['/categories/edit', category.id]" class="btn btn-secondary">Edit</a>
-          <button (click)="deleteCategory(category.id)" class="btn btn-danger">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>Categorías</h2>
+      <a routerLink="/categories/new" class="btn btn-primary">Añadir Nueva Categoría</a>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Path</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>{{ category.name }}</td>
+            <td>{{ category.path }}</td>
+            <td class="actions">
+              <a [routerLink]="['/categories/edit', category.id]" class="btn btn-warning">Editar</a>
+              <button (click)="openConfirmDeleteDialog(category)" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

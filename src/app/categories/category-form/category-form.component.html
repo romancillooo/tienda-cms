@@ -1,15 +1,23 @@
-<div class="category-form">
-  <h2>{{ categoryId ? 'Edit Category' : 'Create Category' }}</h2>
-  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input id="name" formControlName="name" class="form-control" />
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ categoryId ? 'Editar Categoría' : 'Añadir Nueva Categoría' }}</h2>
     </div>
-    <div class="form-group">
-      <label for="path">Path</label>
-      <input id="path" formControlName="path" class="form-control" />
+    <div class="card-body">
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nombre de la Categoría</label>
+          <input id="name" formControlName="name" class="form-control" placeholder="Ingresa el Nombre de la Categoría" />
+        </div>
+        <div class="form-group">
+          <label for="path">Path</label>
+          <input id="path" formControlName="path" class="form-control" placeholder="Ingresa el Path de la Categoría" />
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">{{ categoryId ? 'Actualizar' : 'Crear' }}</button>
+          <a routerLink="/categories" class="btn btn-danger">Cancelar</a>
+        </div>
+      </form>
     </div>
-    <button type="submit" class="btn btn-primary">{{ categoryId ? 'Update' : 'Create' }}</button>
-    <a routerLink="/categories" class="btn btn-secondary">Cancel</a>
-  </form>
+  </div>
 </div>

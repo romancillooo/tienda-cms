@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../services/brand.service';
+import { environment } from '../../../environments/environment';
 import { Brand } from '../../models/brand.model';
 
 @Component({
@@ -33,7 +34,7 @@ export class BrandFormComponent implements OnInit {
     if (this.brandId) {
       this.brandService.getBrand(this.brandId).subscribe(data => {
         this.brandForm.patchValue(data);
-        this.previewUrl = `http://localhost:3000/uploads/brands-logos/${data.image}`;
+        this.previewUrl = environment.apiHost + environment.assetsBasePath + '/brands-logos/' + data.image;
       });
     }
   }
