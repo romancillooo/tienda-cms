@@ -9,6 +9,7 @@
         <thead>
           <tr>
             <th>Nombre</th>
+            <th>Imagen</th>
             <th>Marca</th>
             <th>Categoría</th>
             <th>Precio</th>
@@ -18,11 +19,14 @@
         <tbody>
           <tr *ngFor="let product of products">
             <td>{{ product.name }}</td>
+            <td class="product-img">
+              <img *ngIf="product.image" [src]="getProductImageUrl(product.image)" alt="Product Image" class="img-thumbnail" style="width: 100px;">
+            </td>
             <td>{{ product.brand }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.price | currency }}</td>
             <td class="actions">
-              <a [routerLink]="['/products/edit', product.id]" class="btn btn-warning">Editar</a>
+              <a [routerLink]="['/products/edit', product.id]" class="btn btn-warning btn-edit">Editar</a>
               <button (click)="openConfirmDeleteDialog(product)" class="btn btn-danger">Eliminar</button>
             </td>
           </tr>

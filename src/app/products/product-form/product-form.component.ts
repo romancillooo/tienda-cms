@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.model';
 import { BrandService } from '../../services/brand.service';
 import { CategoryService } from '../../services/category.service';
 import { Brand } from '../../models/brand.model';
 import { Category } from '../../models/category.model';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-product-form',
@@ -23,6 +21,8 @@ export class ProductFormComponent implements OnInit {
   galleryFiles: File[] = [];
   previewUrl: any = null;
   galleryPreviews: any[] = [];
+  deletedGalleryImages: string[] = [];
+  originalGalleryImages: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -49,21 +49,28 @@ export class ProductFormComponent implements OnInit {
     this.loadCategories();
     if (this.productId) {
       this.productService.getProduct(this.productId).subscribe(data => {
-        const availableSizesString = Array.isArray(data.available_sizes) ? data.available_sizes.join(', ') : '';
+        let availableSizesString = '';
+        if (Array.isArray(data.available_sizes)) {
+          availableSizesString = data.available_sizes.join(', ');
+        } else if (typeof data.available_sizes === 'string') {
+          availableSizesString = (data.available_sizes as string).replace(/[\[\]\"]/g, '');
+        }
+
         const formData = {
           ...data,
           available_sizes_string: availableSizesString
         };
         this.productForm.patchValue(formData);
         this.previewUrl = `http://localhost:3000/uploads/products-images/${data.image}`;
-        // Cargar las imágenes de la galería
         if (data.galleryImages && Array.isArray(data.galleryImages)) {
           this.galleryPreviews = data.galleryImages.map((img: string) => `http://localhost:3000/uploads/product-gallery-images/${img}`);
+          this.originalGalleryImages = [...data.galleryImages];
         } else if (typeof data.galleryImages === 'string') {
           try {
             const parsedGalleryImages = JSON.parse(data.galleryImages);
             if (Array.isArray(parsedGalleryImages)) {
               this.galleryPreviews = parsedGalleryImages.map((img: string) => `http://localhost:3000/uploads/product-gallery-images/${img}`);
+              this.originalGalleryImages = [...parsedGalleryImages];
             }
           } catch (e) {
             console.error('Error parsing galleryImages:', e);
@@ -72,7 +79,6 @@ export class ProductFormComponent implements OnInit {
       });
     }
   }
-
 
   loadBrands() {
     this.brandService.getBrands().subscribe(data => {
@@ -89,8 +95,6 @@ export class ProductFormComponent implements OnInit {
   onFileChange(event: any) {
     if (event.target.files && event.target.files.length) {
       this.selectedFile = event.target.files[0];
-
-      // Vista previa
       const reader = new FileReader();
       reader.onload = (e: any) => this.previewUrl = e.target.result;
       if (this.selectedFile) {
@@ -103,8 +107,6 @@ export class ProductFormComponent implements OnInit {
     if (event.target.files && event.target.files.length) {
       for (const file of event.target.files) {
         this.galleryFiles.push(file);
-
-        // Vista previa
         const reader = new FileReader();
         reader.onload = (e: any) => this.galleryPreviews.push(e.target.result);
         reader.readAsDataURL(file);
@@ -112,9 +114,42 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  onDrop(event: CdkDragDrop<string[]>): void {
-    // Aquí puedes manejar el reordenamiento de las imágenes de la galería si es necesario
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    if (event.dataTransfer && event.dataTransfer.files.length) {
+      for (const file of Array.from(event.dataTransfer.files)) {
+        this.galleryFiles.push(file);
+        const reader = new FileReader();
+        reader.onload = (e: any) => this.galleryPreviews.push(e.target.result);
+        reader.readAsDataURL(file);
+      }
+    }
   }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  openFileBrowser(): void {
+    const fileInput = document.getElementById('galleryInput') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  removeImage(preview: any, event: Event) {
+    event.stopPropagation();
+    const index = this.galleryPreviews.indexOf(preview);
+    if (index > -1) {
+      this.galleryPreviews.splice(index, 1);
+      const removedFile = this.galleryFiles[index];
+      if (removedFile) {
+        this.galleryFiles.splice(index, 1);
+      } else {
+        const removedImage = this.originalGalleryImages.splice(index, 1)[0];
+        this.deletedGalleryImages.push(removedImage);
+      }
+    }
+  }
+
 
   onSubmit() {
     if (this.productForm.valid) {
@@ -123,13 +158,23 @@ export class ProductFormComponent implements OnInit {
       formData.append('brand_id', this.productForm.get('brand_id')?.value);
       formData.append('category_id', this.productForm.get('category_id')?.value);
       formData.append('price', this.productForm.get('price')?.value);
-      formData.append('available_sizes', this.productForm.get('available_sizes_string')?.value);
+      formData.append('available_sizes', JSON.stringify(this.productForm.get('available_sizes_string')?.value.split(',').map((size: string) => size.trim())));
       formData.append('liked', this.productForm.get('liked')?.value);
+
       if (this.selectedFile) {
         formData.append('image', this.selectedFile);
+      } else {
+        formData.append('image', this.productForm.get('image')?.value);
       }
+
       for (const file of this.galleryFiles) {
         formData.append('galleryImages', file);
+      }
+
+      formData.append('deletedGalleryImages', JSON.stringify(this.deletedGalleryImages));
+
+      if (this.galleryFiles.length === 0) {
+        formData.append('galleryImages', JSON.stringify(this.originalGalleryImages));
       }
 
       if (this.productId) {
