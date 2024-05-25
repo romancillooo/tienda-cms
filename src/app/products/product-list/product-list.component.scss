@@ -40,15 +40,24 @@
 .table th, .table td {
   padding: 12px;
   border: 1px solid #ccc;
+  text-align: center;  // Centra el texto y las imágenes
 }
 
 .table tbody tr:hover {
   background-color: #f9f9f9;
 }
 
-.actions {
+.product-img {
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions {
+
+  .btn-edit {
+    margin: 0 20px 0 0;
+  }
 }
 
 .btn {

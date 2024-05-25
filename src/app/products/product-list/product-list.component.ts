@@ -25,6 +25,10 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  getProductImageUrl(image: string): string {
+    return `http://localhost:3000/uploads/products-images/${image}`;
+  }
+
   openConfirmDeleteDialog(product: Product): void {
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
       width: '250px',
