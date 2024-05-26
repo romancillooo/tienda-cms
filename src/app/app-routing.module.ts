@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'products', component: ProductListComponent },
   { path: 'products/new', component: ProductFormComponent },
   { path: 'products/edit/:id', component: ProductFormComponent },
+  { path: 'colors', loadChildren: () => import('./colors/colors.module').then(m => m.ColorsModule) },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
@@ -26,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
