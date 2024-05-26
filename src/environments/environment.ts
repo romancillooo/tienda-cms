@@ -11,6 +11,7 @@ export const environment = {
   apiDashboard: '/api',
   apiCategories: '/api/categories',
   apiProducts: '/api/products',
+  apiColors: '/api/colors',
 
   assetsBasePath: '/uploads'
 };

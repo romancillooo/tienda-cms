@@ -37,11 +37,13 @@
         <div class="form-group">
           <label for="gallery">Galería de Imágenes</label>
           <div class="gallery-drop-zone" (click)="openFileBrowser()" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
-            <div *ngIf="galleryPreviews.length === 0">Drop your images here!</div>
+            <div *ngIf="galleryPreviews.length === 0">¡Suelta tus imágenes aquí!</div>
             <div class="gallery-preview">
-              <div *ngFor="let preview of galleryPreviews" class="image-preview">
+              <div *ngFor="let preview of galleryPreviews" class="image-preview" (click)="$event.stopPropagation()">
                 <img [src]="preview" alt="Gallery Image" />
-                <button type="button" (click)="removeImage(preview, $event)" class="btn btn-sm"><i class="fas fa-trash"></i></button>
+                <div class="overlay" (click)="$event.stopPropagation()">
+                  <button type="button" (click)="removeImage(preview, $event)" class="btn delete-btn"><i class="fas fa-trash"></i></button>
+                </div>
               </div>
             </div>
           </div>

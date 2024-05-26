@@ -21,6 +21,7 @@ import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-dele
 import { DeletedModalComponent } from './deleted-modal/deleted-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ColorsModule } from './colors/colors.module'; // Importación correcta del módulo de colores
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     DragDropModule,
+    ColorsModule,
     MatDialogModule
   ],
   providers: [DashboardService, BrandService, CategoryService, ProductService],

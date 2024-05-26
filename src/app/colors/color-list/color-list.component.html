@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>Colores</h2>
+      <a routerLink="/colors/new" class="btn btn-primary">Añadir Nuevo Color</a>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Hex Code</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let color of colors">
+            <td>{{ color.name }}</td>
+            <td>{{ color.hex_code }}</td>
+            <td class="actions">
+              <a *ngIf="color.id !== undefined" [routerLink]="['/colors/edit', color.id]" class="btn btn-warning btn-edit">Editar</a>
+              <button *ngIf="color.id !== undefined" (click)="deleteColor(color.id)" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
