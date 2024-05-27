@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { BrandService } from '../../services/brand.service';
@@ -13,7 +13,7 @@ import { Category } from '../../models/category.model';
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
-  productForm: FormGroup;
+  productForm: UntypedFormGroup;
   productId!: number;
   brands: Brand[] = [];
   categories: Category[] = [];
@@ -25,7 +25,7 @@ export class ProductFormComponent implements OnInit {
   originalGalleryImages: string[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private productService: ProductService,
     private brandService: BrandService,
     private categoryService: CategoryService,

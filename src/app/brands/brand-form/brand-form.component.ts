@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../services/brand.service';
 import { environment } from '../../../environments/environment';
@@ -11,13 +11,13 @@ import { Brand } from '../../models/brand.model';
   styleUrls: ['./brand-form.component.scss']
 })
 export class BrandFormComponent implements OnInit {
-  brandForm: FormGroup;
+  brandForm: UntypedFormGroup;
   brandId!: number;
   selectedFile: File | null = null;
   previewUrl: any = null;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private brandService: BrandService,
     private router: Router,
     private route: ActivatedRoute
