@@ -7,42 +7,62 @@
       <form [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
         <div class="form-group">
           <label for="name">Nombre del Producto</label>
-          <input id="name" formControlName="name" class="form-control" placeholder="Ingresa el Nombre del Producto" />
+          <input id="name" formControlName="name" class="form-control" placeholder="Ingresa el Nombre del Producto." />
         </div>
         <div class="form-group">
-          <label for="brand_id">Marca</label>
-          <select id="brand_id" formControlName="brand_id" class="form-control">
-            <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
-          </select>
+          <label for="image">Imagen Principal del Producto</label>
+          <input type="file" id="image" (change)="onFileChange($event)" class="form-control" name="image"/>
+          <img *ngIf="previewUrl" [src]="previewUrl" alt="Product Image Preview" class="img-thumbnail mt-2"/>
         </div>
-        <div class="form-group">
-          <label for="category_id">Categoría</label>
-          <select id="category_id" formControlName="category_id" class="form-control">
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-          </select>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="brand_id">Marca</label>
+            <select id="brand_id" formControlName="brand_id" class="form-control">
+              <option value="" disabled selected>Selecciona una marca</option>
+              <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="category_id">Categoría</label>
+            <select id="category_id" formControlName="category_id" class="form-control">
+              <option value="" disabled selected>Selecciona una categoría</option>
+              <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
           <label for="price">Precio</label>
           <input id="price" formControlName="price" type="number" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="image">Imagen</label>
-          <input type="file" id="image" (change)="onFileChange($event)" class="form-control" />
-          <img *ngIf="previewUrl" [src]="previewUrl" alt="Vista previa" class="img-thumbnail mt-2" style="width: 100px;">
+          <label for="available_sizes">Tamaños Disponibles</label>
+          <input id="available_sizes" formControlName="available_sizes_string" class="form-control" placeholder="Ingresa los tamaños del Producto (separado por comas)." />
         </div>
         <div class="form-group">
-          <label for="available_sizes">Tamaños Disponibles (separados por comas)</label>
-          <input id="available_sizes" formControlName="available_sizes_string" class="form-control" />
+          <label for="colors">Colores</label>
+          <div class="color-circles">
+            <div
+              *ngFor="let color of colors"
+              class="color-circle"
+              [ngStyle]="{'background-color': color.hex_code}"
+              (click)="toggleColorSelection(color)">
+              <span *ngIf="isColorSelected(color)" class="checkmark">✔</span>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="gallery">Galería de Imágenes</label>
-          <div class="gallery-drop-zone" (click)="openFileBrowser()" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
-            <div *ngIf="galleryPreviews.length === 0">¡Suelta tus imágenes aquí!</div>
-            <div class="gallery-preview">
-              <div *ngFor="let preview of galleryPreviews" class="image-preview" (click)="$event.stopPropagation()">
-                <img [src]="preview" alt="Gallery Image" />
-                <div class="overlay" (click)="$event.stopPropagation()">
-                  <button type="button" (click)="removeImage(preview, $event)" class="btn delete-btn"><i class="fas fa-trash"></i></button>
+          <div *ngFor="let color of selectedColors">
+            <div class="gallery-drop-zone" (click)="openFileBrowser(color)" (drop)="onDrop($event, color)" (dragover)="onDragOver($event)">
+              <div *ngIf="!galleryPreviews[color.id] || galleryPreviews[color.id].length === 0">
+                Selecciona imágenes para el color {{ color.name }}
+              </div>
+              <div class="gallery-preview">
+                <div *ngFor="let preview of galleryPreviews[color.id]" class="image-preview" (click)="$event.stopPropagation()">
+                  <img [src]="preview.src" alt="Gallery Image" />
+                  <div class="overlay" (click)="$event.stopPropagation()">
+                    <button type="button" (click)="removeImage(preview, color, $event)" class="btn delete-btn"><i class="fas fa-trash"></i></button>
+                  </div>
                 </div>
               </div>
             </div>

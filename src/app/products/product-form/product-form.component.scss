@@ -42,11 +42,53 @@
   border-radius: 4px;
 }
 
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group.col-md-6 {
+  flex: 0 0 48%;
+  max-width: 48%;
+}
+
+.img-thumbnail {
+  width: 163px;
+}
+
+.color-circles {
+  display: flex;
+  gap: 10px;
+}
+
+.color-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.color-circle:hover {
+  border-color: #000;
+}
+
+.checkmark {
+  color: #fff;
+  font-size: 24px;
+}
+
 .gallery-drop-zone {
   border: 2px dashed #ccc;
   padding: 16px;
   text-align: center;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .gallery-preview {

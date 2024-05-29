@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColorService } from '../../services/color.service';
 import Pickr from '@simonwep/pickr';
@@ -10,13 +10,13 @@ import Pickr from '@simonwep/pickr';
   styleUrls: ['./color-form.component.scss']
 })
 export class ColorFormComponent implements OnInit, AfterViewInit, OnDestroy {
-  colorForm: FormGroup;
+  colorForm: UntypedFormGroup;
   colorId!: number;
   color: string = '#000000';  // Inicializa con un color por defecto
   pickr: any;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private colorService: ColorService,
     private router: Router,
     private route: ActivatedRoute
@@ -45,6 +45,8 @@ export class ColorFormComponent implements OnInit, AfterViewInit, OnDestroy {
       el: '.color-picker',
       theme: 'classic', // or 'monolith', or 'nano'
       default: this.color,
+      showAlways: true,  // Mostrar siempre el color picker
+      inline: true,  // Mostrar el color picker en línea
       components: {
         preview: true,
         opacity: true,
