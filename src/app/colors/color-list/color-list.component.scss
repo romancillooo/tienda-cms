@@ -59,3 +59,12 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.color-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: #fff; /* Default background color */
+}

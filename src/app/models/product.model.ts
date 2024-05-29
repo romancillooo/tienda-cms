@@ -1,13 +1,15 @@
+import { Color } from './color.model';
+
 export interface Product {
-  id?: number; // `id` puede ser opcional
+  id: number;
+  name: string;
   brand_id: number;
   category_id: number;
-  name: string;
   price: number;
+  available_sizes: string[];
   image: string;
-  available_sizes: string[]; // Define como un array de cadenas
-  liked: boolean;
-  brand?: string; // Opcional
-  category?: string; // Opcional
+  colors: Color[];
   galleryImages?: string[];
+  brand_name?: string;
+  category_name?: string;
 }

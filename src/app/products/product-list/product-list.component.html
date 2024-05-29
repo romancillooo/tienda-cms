@@ -1,8 +1,24 @@
 <div class="container mt-4">
   <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
       <h2>Productos</h2>
-      <a routerLink="/products/new" class="btn btn-primary">Añadir Nuevo Producto</a>
+      <div class="d-flex">
+        <select class="form-control mr-2" [(ngModel)]="selectedBrand" (change)="filterProducts()">
+          <option value="">Filtrar por Marca</option>
+          <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
+        </select>
+        <select class="form-control mr-2" [(ngModel)]="selectedCategory" (change)="filterProducts()">
+          <option value="">Filtrar por Categoría</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar productos..." [(ngModel)]="searchQuery" />
+          <div class="input-group-append">
+            <button class="btn btn-primary btn-search-pd" (click)="searchProducts()"><i class="fa-solid fa-search"></i></button>
+          </div>
+        </div>
+        <a routerLink="/products/new" class="btn btn-primary ml-2">Añadir Nuevo Producto <i class="fa-solid fa-circle-plus"></i></a>
+      </div>
     </div>
     <div class="card-body">
       <table class="table">
@@ -17,17 +33,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of products">
+          <tr *ngFor="let product of filteredProducts">
             <td>{{ product.name }}</td>
             <td class="product-img">
               <img *ngIf="product.image" [src]="getProductImageUrl(product.image)" alt="Product Image" class="img-thumbnail" style="width: 100px;">
             </td>
-            <td>{{ product.brand }}</td>
-            <td>{{ product.category }}</td>
+            <td>{{ product.brand_name }}</td>
+            <td>{{ product.category_name }}</td>
             <td>{{ product.price | currency }}</td>
             <td class="actions">
-              <a [routerLink]="['/products/edit', product.id]" class="btn btn-warning btn-edit">Editar</a>
-              <button (click)="openConfirmDeleteDialog(product)" class="btn btn-danger">Eliminar</button>
+              <a [routerLink]="['/products/edit', product.id]" class="btn btn-success btn-edit">Editar <i class="fas fa-pencil"></i></a>
+              <button (click)="openConfirmDeleteDialog(product)" class="btn btn-danger">Eliminar <i class="fas fa-trash"></i></button>
             </td>
           </tr>
         </tbody>

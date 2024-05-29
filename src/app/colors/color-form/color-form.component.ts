@@ -45,6 +45,8 @@ export class ColorFormComponent implements OnInit, AfterViewInit, OnDestroy {
       el: '.color-picker',
       theme: 'classic', // or 'monolith', or 'nano'
       default: this.color,
+      showAlways: true,  // Mostrar siempre el color picker
+      inline: true,  // Mostrar el color picker en línea
       components: {
         preview: true,
         opacity: true,

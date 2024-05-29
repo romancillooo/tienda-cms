@@ -11,7 +11,7 @@ import { CategoryFormComponent } from './categories/category-form/category-form.
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductFormComponent } from './products/product-form/product-form.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DashboardService } from './services/dashboard.service';
 import { BrandService } from './services/brand.service';
 import { CategoryService } from './services/category.service';
@@ -21,7 +21,7 @@ import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-dele
 import { DeletedModalComponent } from './deleted-modal/deleted-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ColorsModule } from './colors/colors.module'; // Importación correcta del módulo de colores
+import { ColorsModule } from './colors/colors.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { ColorsModule } from './colors/colors.module'; // Importación correcta 
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     DragDropModule,
     ColorsModule,
