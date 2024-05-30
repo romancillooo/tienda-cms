@@ -6,12 +6,12 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
-  private apiUrl = `${environment.apiHost}${environment.apiStatistics}`;
+export class OrderService {
+  private apiUrl = `${environment.apiHost}${environment.apiOrders}`;
 
   constructor(private http: HttpClient) { }
 
-  getStatistics(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getLatestOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/latest`);
   }
 }

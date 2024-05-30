@@ -20,7 +20,7 @@
               <span class="color-circle" [style.background-color]="color.hex_code"></span>
             </td>
             <td class="actions">
-              <a *ngIf="color.id !== undefined" [routerLink]="['/colors/edit', color.id]" class="btn btn-warning btn-edit">Editar</a>
+              <a *ngIf="color.id !== undefined" [routerLink]="['/colors/edit', color.id]" class="btn btn-success btn-edit">Editar <i class="fas fa-pencil"></i></a>
               <button *ngIf="color.id !== undefined" (click)="deleteColor(color.id)" class="btn btn-danger">Eliminar</button>
             </td>
           </tr>

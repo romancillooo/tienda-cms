@@ -31,4 +31,8 @@ export class ProductService {
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getLatestProducts(): Observable<Product[]> { // Agrega este método
+    return this.http.get<Product[]>(`${this.apiUrl}/latest`);
+  }
 }

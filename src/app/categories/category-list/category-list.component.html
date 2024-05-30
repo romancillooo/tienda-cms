@@ -18,7 +18,7 @@
             <td>{{ category.name }}</td>
             <td>{{ category.path }}</td>
             <td class="actions">
-              <a [routerLink]="['/categories/edit', category.id]" class="btn btn-warning">Editar</a>
+              <a [routerLink]="['/categories/edit', category.id]" class="btn btn-success btn-edit">Editar <i class="fas fa-pencil"></i></a>
               <button (click)="openConfirmDeleteDialog(category)" class="btn btn-danger">Eliminar</button>
             </td>
           </tr>

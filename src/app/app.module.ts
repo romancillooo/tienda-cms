@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrandListComponent } from './brands/brand-list/brand-list.component';
 import { BrandFormComponent } from './brands/brand-form/brand-form.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
@@ -22,12 +21,11 @@ import { DeletedModalComponent } from './deleted-modal/deleted-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ColorsModule } from './colors/colors.module';
-
+import { DashboardModule } from './dashboard/dashboard.module';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    DashboardComponent,
     BrandListComponent,
     BrandFormComponent,
     CategoryListComponent,
@@ -46,7 +44,8 @@ import { ColorsModule } from './colors/colors.module';
     BrowserAnimationsModule,
     DragDropModule,
     ColorsModule,
-    MatDialogModule
+    MatDialogModule,
+    DashboardModule
   ],
   providers: [DashboardService, BrandService, CategoryService, ProductService],
   bootstrap: [AppComponent]

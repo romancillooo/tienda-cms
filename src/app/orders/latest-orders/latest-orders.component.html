@@ -1,0 +1,11 @@
+<div class="latest-orders">
+  <h3>Últimos Pedidos</h3>
+  <ul>
+    <li *ngFor="let order of latestOrders">
+      <div class="order-info">
+        <h4>Pedido #{{ order.id }}</h4>
+        <p>{{ order.date }}</p>
+      </div>
+    </li>
+  </ul>
+</div>

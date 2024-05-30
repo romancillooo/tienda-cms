@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
   loadStatistics() {
     this.dashboardService.getStatistics().subscribe(data => {
       this.statistics = data;
+    }, error => {
+      console.error('Error fetching statistics', error);
     });
   }
 }

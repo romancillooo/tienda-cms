@@ -22,6 +22,27 @@
     font-size: 30px;
     font-family: var(--fuentePrincipal);
   }
+
+  .d-flex {
+    display: flex;
+    gap: 10px;
+  }
+
+  .form-control {
+    width: auto;
+  }
+
+  .input-group {
+    width: auto;
+  }
+
+  .input-group .form-control {
+    width: 200px;
+  }
+
+  .input-group-append .btn {
+    padding: 0 10px;
+  }
 }
 
 .card-body {
@@ -40,6 +61,7 @@
 .table th, .table td {
   padding: 12px;
   border: 1px solid #ccc;
+  text-align: center;
 }
 
 .table tbody tr:hover {
@@ -47,8 +69,9 @@
 }
 
 .actions {
-  display: flex;
-  gap: 1rem;
+  .btn-edit {
+    margin: 0 20px 0 0;
+  }
 }
 
 .btn {
@@ -56,4 +79,8 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.btn-search-pd {
+  height: 40px;
 }
