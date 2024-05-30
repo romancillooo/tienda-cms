@@ -20,7 +20,7 @@
             <td><img [src]="apiHost + assetsBasePath +'/brands-logos/' + brand.image" alt="{{ brand.name }}" class="img-thumbnail"></td>
             <td>{{ brand.path }}</td>
             <td class="actions">
-              <a [routerLink]="['/brands/edit', brand.id]" class="btn btn-warning">Editar</a>
+              <a [routerLink]="['/brands/edit', brand.id]" class="btn btn-success btn-edit">Editar <i class="fas fa-pencil"></i></a>
               <button (click)="openConfirmDeleteDialog(brand)" class="btn btn-danger">Eliminar</button>
             </td>
           </tr>

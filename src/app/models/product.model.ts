@@ -12,4 +12,5 @@ export interface Product {
   galleryImages?: string[];
   brand_name?: string;
   category_name?: string;
+  imageUrl?: string;
 }

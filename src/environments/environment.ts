@@ -12,6 +12,9 @@ export const environment = {
   apiCategories: '/api/categories',
   apiProducts: '/api/products',
   apiColors: '/api/colors',
+  apiNotifications: '/api/notifications',
+  apiOrders: '/api/orders',
+  apiStatistics: '/api/statistics',
 
   assetsBasePath: '/uploads'
 };
