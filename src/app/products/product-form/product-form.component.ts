@@ -23,12 +23,14 @@ export class ProductFormComponent implements OnInit {
   colors: Color[] = [];
   selectedColors: Color[] = [];
   selectedFile: File | null = null;
+  selectedFile2: File | null = null;
   galleryFiles: { [key: number]: File[] } = {};
   galleryPreviews: { [key: number]: any[] } = {};
   deletedGalleryImages: string[] = [];
   originalGalleryImages: string[] = [];
   currentFileInputColorId: number | null = null;
   previewUrl: string | null = null;
+  previewUrl2: string | null = null;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -47,7 +49,8 @@ export class ProductFormComponent implements OnInit {
       available_sizes_string: [''],
       colors: this.fb.array([]),
       gallery: this.fb.array([]),
-      image: [null, Validators.required]
+      image: [null, Validators.required],
+      image2: [null, Validators.required]
     });
   }
 
@@ -66,8 +69,10 @@ export class ProductFormComponent implements OnInit {
           price: product.price,
           available_sizes_string: product.available_sizes.join(', '),
           image: product.image,
+          image2: product.image2
         });
         this.previewUrl = `http://localhost:3000/uploads/products-images/${product.image}`;
+        this.previewUrl2 = `http://localhost:3000/uploads/products-images/${product.image2}`;
         this.selectedColors = product.colors
           .map((color: any) => {
             const existingColor = this.colors.find(c => c.id === color.color_id);
@@ -118,16 +123,25 @@ export class ProductFormComponent implements OnInit {
     return this.selectedColors.some(c => c.id === color.id);
   }
 
-  onFileChange(event: any) {
+  onFileChange(event: any, field: string) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.previewUrl = e.target.result;
+        if (field === 'image') {
+          this.previewUrl = e.target.result;
+        } else if (field === 'image2') {
+          this.previewUrl2 = e.target.result;
+        }
       };
       reader.readAsDataURL(file);
-      this.selectedFile = file;
-      this.productForm.patchValue({ image: file });
+      if (field === 'image') {
+        this.selectedFile = file;
+        this.productForm.patchValue({ image: file });
+      } else if (field === 'image2') {
+        this.selectedFile2 = file;
+        this.productForm.patchValue({ image2: file });
+      }
     }
   }
 
@@ -204,6 +218,7 @@ export class ProductFormComponent implements OnInit {
     }))));
 
     const currentImageValue = this.productForm.get('image')!.value;
+    const currentImageValue2 = this.productForm.get('image2')!.value;
 
     if (this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
@@ -211,6 +226,15 @@ export class ProductFormComponent implements OnInit {
       formData.append('image', currentImageValue);
     } else {
       console.error("No se ha seleccionado una imagen principal.");
+      return;
+    }
+
+    if (this.selectedFile2) {
+      formData.append('image2', this.selectedFile2, this.selectedFile2.name);
+    } else if (typeof currentImageValue2 === 'string') {
+      formData.append('image2', currentImageValue2);
+    } else {
+      console.error("No se ha seleccionado la segunda imagen principal.");
       return;
     }
 

@@ -26,6 +26,7 @@
           <tr>
             <th>Nombre</th>
             <th>Imagen</th>
+            <th>Imagen Secundaria</th>
             <th>Marca</th>
             <th>Categoría</th>
             <th>Precio</th>
@@ -34,9 +35,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let product of filteredProducts">
-            <td>{{ product.name }}</td>
+            <td class="product-name">{{ product.name }}</td>
             <td class="product-img">
               <img *ngIf="product.image" [src]="getProductImageUrl(product.image)" alt="Product Image" class="img-thumbnail" style="width: 100px;">
+            </td>
+            <td class="product-img2">
+              <img *ngIf="product.image2" [src]="getProductImageUrl(product.image2)" alt="Product Image2" class="img-thumbnail" style="width: 100px;">
             </td>
             <td>{{ product.brand_name }}</td>
             <td>{{ product.category_name }}</td>

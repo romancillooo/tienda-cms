@@ -10,6 +10,7 @@
           <tr>
             <th>Nombre</th>
             <th>Imagen</th>
+            <th>Banner</th>
             <th>Path</th>
             <th>Acciones</th>
           </tr>
@@ -18,6 +19,7 @@
           <tr *ngFor="let brand of brands">
             <td>{{ brand.name }}</td>
             <td><img [src]="apiHost + assetsBasePath +'/brands-logos/' + brand.image" alt="{{ brand.name }}" class="img-thumbnail"></td>
+            <td><img [src]="apiHost + assetsBasePath +'/brands-banners/' + brand.banner" alt="{{ brand.name }}" class="img-thumbnail"></td>
             <td>{{ brand.path }}</td>
             <td class="actions">
               <a [routerLink]="['/brands/edit', brand.id]" class="btn btn-success btn-edit">Editar <i class="fas fa-pencil"></i></a>
