@@ -13,8 +13,9 @@ import { Brand } from '../../models/brand.model';
 export class BrandFormComponent implements OnInit {
   brandForm: UntypedFormGroup;
   brandId!: number;
-  selectedFile: File | null = null;
-  previewUrl: any = null;
+  selectedFiles: { [key: string]: File | null } = { image: null, banner: null };
+  imagePreviewUrl: any = null;
+  bannerPreviewUrl: any = null;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -25,6 +26,7 @@ export class BrandFormComponent implements OnInit {
     this.brandForm = this.fb.group({
       name: ['', Validators.required],
       image: [''],
+      banner: [''],
       path: ['', Validators.required]
     });
   }
@@ -34,20 +36,27 @@ export class BrandFormComponent implements OnInit {
     if (this.brandId) {
       this.brandService.getBrand(this.brandId).subscribe(data => {
         this.brandForm.patchValue(data);
-        this.previewUrl = environment.apiHost + environment.assetsBasePath + '/brands-logos/' + data.image;
+        this.imagePreviewUrl = environment.apiHost + environment.assetsBasePath + '/brands-logos/' + data.image;
+        this.bannerPreviewUrl = environment.apiHost + environment.assetsBasePath + '/brands-banners/' + data.banner;
       });
     }
   }
 
-  onFileChange(event: any) {
+  onFileChange(event: any, field: string) {
     if (event.target.files && event.target.files.length) {
-      this.selectedFile = event.target.files[0];
+      this.selectedFiles[field] = event.target.files[0];
 
       // Vista previa
       const reader = new FileReader();
-      reader.onload = (e: any) => this.previewUrl = e.target.result;
-      if (this.selectedFile) {
-        reader.readAsDataURL(this.selectedFile);
+      reader.onload = (e: any) => {
+        if (field === 'image') {
+          this.imagePreviewUrl = e.target.result;
+        } else if (field === 'banner') {
+          this.bannerPreviewUrl = e.target.result;
+        }
+      };
+      if (this.selectedFiles[field]) {
+        reader.readAsDataURL(this.selectedFiles[field] as File);
       }
     }
   }
@@ -57,8 +66,15 @@ export class BrandFormComponent implements OnInit {
       const formData = new FormData();
       formData.append('name', this.brandForm.get('name')?.value);
       formData.append('path', this.brandForm.get('path')?.value);
-      if (this.selectedFile) {
-        formData.append('image', this.selectedFile); // No es necesario cambiar nada aquí
+      if (this.selectedFiles['image']) {
+        formData.append('image', this.selectedFiles['image']);
+      } else {
+        formData.append('image', this.brandForm.get('image')?.value);
+      }
+      if (this.selectedFiles['banner']) {
+        formData.append('banner', this.selectedFiles['banner']);
+      } else {
+        formData.append('banner', this.brandForm.get('banner')?.value);
       }
 
       if (this.brandId) {
