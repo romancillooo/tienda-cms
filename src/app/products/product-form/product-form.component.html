@@ -10,6 +10,10 @@
           <input id="name" formControlName="name" class="form-control" placeholder="Ingresa el Nombre del Producto." />
         </div>
         <div class="form-group">
+          <label for="description">Descripción del Producto</label>
+          <textarea id="description" formControlName="description" class="form-control" placeholder="Ingresa la Descripción del Producto."></textarea>
+        </div>
+        <div class="form-group">
           <label for="image">Imagen Principal del Producto</label>
           <input type="file" id="image" (change)="onFileChange($event, 'image')" class="form-control" name="image"/>
           <img *ngIf="previewUrl" [src]="previewUrl" alt="Product Image Preview" class="img-thumbnail mt-2"/>

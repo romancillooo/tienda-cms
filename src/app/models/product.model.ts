@@ -3,6 +3,7 @@ import { Color } from './color.model';
 export interface Product {
   id: number;
   name: string;
+  description: string;
   brand_id: number;
   category_id: number;
   price: number;
