@@ -43,6 +43,7 @@ export class ProductFormComponent implements OnInit {
   ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
+      description: ['', Validators.required],
       brand_id: ['', Validators.required],
       category_id: ['', Validators.required],
       price: [0, Validators.required],
@@ -64,6 +65,7 @@ export class ProductFormComponent implements OnInit {
       this.productService.getProduct(this.productId).subscribe((product: Product) => {
         this.productForm.patchValue({
           name: product.name,
+          description: product.description,
           brand_id: product.brand_id,
           category_id: product.category_id,
           price: product.price,
@@ -208,6 +210,7 @@ export class ProductFormComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append('name', this.productForm.get('name')!.value);
+    formData.append('description', this.productForm.get('description')!.value);
     formData.append('brand_id', this.productForm.get('brand_id')!.value);
     formData.append('category_id', this.productForm.get('category_id')!.value);
     formData.append('price', this.productForm.get('price')!.value);
