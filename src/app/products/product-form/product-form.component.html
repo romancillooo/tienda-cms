@@ -44,10 +44,6 @@
           <input id="price" formControlName="price" type="number" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="available_sizes">Tamaños Disponibles</label>
-          <input id="available_sizes" formControlName="available_sizes_string" class="form-control" placeholder="Ingresa los tamaños del Producto (separado por comas)." />
-        </div>
-        <div class="form-group">
           <label for="colors">Colores</label>
           <div class="color-circles">
             <div
@@ -58,6 +54,10 @@
               <span *ngIf="isColorSelected(color)" class="checkmark">✔</span>
             </div>
           </div>
+        </div>
+        <div *ngFor="let color of selectedColors" class="form-group">
+          <label for="sizes_{{color.id}}">Tamaños Disponibles para {{color.name}}</label>
+          <input id="sizes_{{color.id}}" [formControlName]="'sizes_' + color.id" class="form-control" placeholder="Ingresa los tamaños del Producto (separado por comas)." />
         </div>
         <div class="form-group">
           <label for="gallery">Galería de Imágenes</label>

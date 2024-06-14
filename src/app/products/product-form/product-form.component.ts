@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { BrandService } from '../../services/brand.service';
@@ -9,6 +9,7 @@ import { Brand } from '../../models/brand.model';
 import { Category } from '../../models/category.model';
 import { Color } from '../../models/color.model';
 import { Product } from '../../models/product.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-form',
@@ -69,12 +70,12 @@ export class ProductFormComponent implements OnInit {
           brand_id: product.brand_id,
           category_id: product.category_id,
           price: product.price,
-          available_sizes_string: product.available_sizes.join(', '),
+          available_sizes_string: (product.available_sizes || []).join(', '),
           image: product.image,
           image2: product.image2
         });
-        this.previewUrl = `http://localhost:3000/uploads/products-images/${product.image}`;
-        this.previewUrl2 = `http://localhost:3000/uploads/products-images/${product.image2}`;
+        this.previewUrl = `${environment.apiHost}${environment.assetsBasePath}/products-images/${product.image}`;
+        this.previewUrl2 = `${environment.apiHost}${environment.assetsBasePath}/products-images/${product.image2}`;
         this.selectedColors = product.colors
           .map((color: any) => {
             const existingColor = this.colors.find(c => c.id === color.color_id);
@@ -82,6 +83,7 @@ export class ProductFormComponent implements OnInit {
               existingColor.galleryImages = color.galleryImages;
               existingColor.product_color_id = color.product_color_id;
               this.initializeGallery(existingColor.id, color.galleryImages);
+              this.addColorSizeInput(existingColor.id, (color.sizes || []).join(', '));
             }
             return existingColor;
           })
@@ -115,9 +117,11 @@ export class ProductFormComponent implements OnInit {
       this.selectedColors.splice(index, 1);
       delete this.galleryPreviews[color.id];
       delete this.galleryFiles[color.id];
+      this.removeColorSizeInput(color.id);
     } else {
       this.selectedColors.push(color);
       this.initializeGallery(color.id, []);
+      this.addColorSizeInput(color.id, '');
     }
   }
 
@@ -179,7 +183,7 @@ export class ProductFormComponent implements OnInit {
       if (index !== -1) {
         previews.splice(index, 1);
         files.splice(index, 1);
-        if (preview.src.startsWith('http://localhost:3000/uploads/product-gallery-images/')) {
+        if (preview.src.startsWith(`${environment.apiHost}${environment.assetsBasePath}/product-gallery-images/`)) {
           const imageName = preview.src.split('/').pop();
           this.deletedGalleryImages.push(imageName!);
         }
@@ -217,7 +221,8 @@ export class ProductFormComponent implements OnInit {
     formData.append('available_sizes', this.productForm.get('available_sizes_string')!.value);
     formData.append('colors', JSON.stringify(this.selectedColors.map(color => ({
       id: color.id,
-      product_color_id: color['product_color_id']
+      product_color_id: color['product_color_id'],
+      sizes: this.productForm.get(`sizes_${color.id}`)!.value.split(',').map((size: string) => size.trim())
     }))));
 
     const currentImageValue = this.productForm.get('image')!.value;
@@ -270,7 +275,15 @@ export class ProductFormComponent implements OnInit {
       this.galleryFiles[colorId] = [];
     }
     if (!this.galleryPreviews[colorId]) {
-      this.galleryPreviews[colorId] = galleryImages.map(img => ({ src: `http://localhost:3000/uploads/product-gallery-images/${img}` }));
+      this.galleryPreviews[colorId] = galleryImages.map(img => ({ src: `${environment.apiHost}${environment.assetsBasePath}/product-gallery-images/${img}` }));
     }
+  }
+
+  private addColorSizeInput(colorId: number, sizes: string) {
+    this.productForm.addControl(`sizes_${colorId}`, new FormControl(sizes, Validators.required));
+  }
+
+  private removeColorSizeInput(colorId: number) {
+    this.productForm.removeControl(`sizes_${colorId}`);
   }
 }
