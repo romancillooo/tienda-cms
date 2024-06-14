@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-latest-products',
@@ -21,7 +22,7 @@ export class LatestProductsComponent implements OnInit {
       this.latestProducts = data.map(product => {
         return {
           ...product,
-          imageUrl: `http://localhost:3000/uploads/products-images/${product.image}`
+          imageUrl: `${environment.apiHost}${environment.assetsBasePath}/products-images/${product.image}`
         };
       });
     });
